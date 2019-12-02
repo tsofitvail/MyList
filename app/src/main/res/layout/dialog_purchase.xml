@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+
+  >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_gravity="center"
+        android:text="אז איפה קנית?"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15dp"
+        android:textStyle="bold"></TextView>
+    <android.widget.AutoCompleteTextView
+        android:id="@+id/place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:maxLength="30"
+        android:inputType="text|textVisiblePassword"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="0dp"
+        android:text="באיזה תאריך התבצעה הקנייה?"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="15dp"></TextView>
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        android:layout_gravity="center"
+
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addPriceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="הוסף מחירים"
+        android:layout_gravity="center"
+        ></com.google.android.material.button.MaterialButton>
+
+
+
+</LinearLayout>

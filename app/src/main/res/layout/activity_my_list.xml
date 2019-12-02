@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    android:id="@+id/myList">
+    <LinearLayout
+        android:id="@+id/recycleViewEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:weightSum="4"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_empty_list"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:layout_marginTop="100dp"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="סל הקניות שלך ריק!"
+            android:textSize="25dp"
+            style="@style/TextView"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="הוסף פריטים לרשימה\n על ידי לחיצה על הכפתור מטה"
+            android:lines="2"
+            android:minLines="2"
+            android:textSize="15dp"
+            style="@style/TextView"
+            android:layout_gravity="center"
+
+            />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="3"
+        android:id="@+id/buttonList">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="ShowAddItemPopup"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="עדכן קנייה"
+            android:onClick="ShowPurchaseDialog"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/compare_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="השווה מחירי מוצרים"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:padding="1dp"
+            android:onClick="comparePrice"
+            />
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

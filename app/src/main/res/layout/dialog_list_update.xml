@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="הרשימה עודכנה בהצלחה!"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:background="@color/blue"
+        android:textColor="@color/white"
+        android:padding="35dp"
+        style="@style/TextView"
+
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/backtoList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:color="@color/blue"
+        android:text="המשך"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/gray"
+        app:cornerRadius="0dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+
+
+
+
+        />
+
+
+</LinearLayout>

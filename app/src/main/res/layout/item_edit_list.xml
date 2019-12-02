@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layoutDirection="rtl"
+        android:weightSum="5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/itemName"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="שם הפריט"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            style="@style/ItemList"/>
+        <EditText
+            android:id="@+id/itemPrice"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:hint="הכנס מחיר"
+            android:layout_weight="2"
+            style="@style/EditText"
+            android:maxLength="6"
+            android:digits="0123456789."/>
+
+        <ImageButton
+            android:id="@+id/viewMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_blue"
+            android:background="@color/white"
+
+
+
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutExpand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:layoutDirection="rtl"
+        android:weightSum="3"
+        android:visibility="gone">
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="כמות (בקילו)"
+            android:layout_weight="1"
+            style="@style/EditText"
+            android:maxLength="6"
+            android:digits="0123456789."
+            />
+        <EditText
+            android:id="@+id/priceforKilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="מחיר לקילו"
+            android:layout_weight="1"
+            style="@style/EditText"
+            android:maxLength="6"
+            android:digits="0123456789."/>
+        <EditText
+            android:id="@+id/brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="מותג"
+            android:layout_weight="1"
+            style="@style/EditText"
+            android:maxLength="10"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

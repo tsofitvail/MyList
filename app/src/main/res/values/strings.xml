@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyList</string>
+    <string name="successful_message">הפריט נוסף בהצלחה</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+</resources>

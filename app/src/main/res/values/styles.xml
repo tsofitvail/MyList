@@ -1,0 +1,76 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <!--   color for the app bar and other primary UI elements -->
+        <item name="colorPrimary">@color/blue</item>
+        <!--   a darker variant of the primary color, used for
+       the status bar (on Android 5.0+) and contextual app bars -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--   a secondary color for controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:textViewStyle">@style/TextView</item>
+
+
+    </style>
+    <style name="NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--   color for the app bar and other primary UI elements -->
+        <item name="colorPrimary">@color/blue</item>
+        <!--   a darker variant of the primary color, used for
+       the status bar (on Android 5.0+) and contextual app bars -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--   a secondary color for controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:textViewStyle">@style/TextView</item>
+    </style>
+
+
+    <style name="ItemList">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+
+    <style name="EditText" parent="ItemList">
+        <item name="android:inputType">textMultiLine|textVisiblePassword</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:color">@color/blue</item>
+
+
+    </style>
+    <style name="TextView">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/darkGray</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textAlignment">center</item>
+
+
+    </style>
+    <style name="PopUp">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="RecyclerViewRow">
+        <item name="android:background">@color/gray</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textAlignment">center</item>
+
+    </style>
+
+
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:id="@+id/headlineLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/displayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="!היי שירה"
+            android:textSize="25dp"
+            android:textColor="@color/blue"/>
+        <TextView
+            android:id="@+id/welcomeMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="ברוך הבא לאפליקציה"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="הינה כמה מהפעולות שזמינות בשבילך:"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/boardingRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        />
+
+
+</LinearLayout>
