@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 import com.myListApp.mylist.Adapter.BoardingAdapter;
 import com.myListApp.mylist.Adapter.ItemViewAdapter;
 import com.myListApp.mylist.Enum.EnumLayoutType;
+import com.myListApp.mylist.Firebase.UserOperation;
 import com.myListApp.mylist.Models.ArchiveItemModel;
 import com.myListApp.mylist.Models.ItemModel;
 import com.myListApp.mylist.SQLite.AppDatabase;
@@ -41,13 +42,14 @@ public class UpdateListActivity extends BaseActivity {
     private RecyclerView mrecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ItemViewAdapter itemViewAdapter;
-    public static List<ArchiveItemModel> archiveItemModelArray=new ArrayList<ArchiveItemModel>();
+    //public static List<ArchiveItemModel> =new ArrayList<ArchiveItemModel>();
     private ItemListDao itemListDao;
     private ArchiveItemListDao archiveItemListDao;
     private String place,date;
     private AlertDialog purchaseDialog;
     private AutoCompleteTextView editTextPlace;
     private DatePicker datePicker;
+    private UserOperation userOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class UpdateListActivity extends BaseActivity {
         itemListDao=AppDatabase.getInstance(this).itemListDao();
         txtplace=findViewById(R.id.place);
         txtdate=findViewById(R.id.date);
-
+        userOperation=UserOperation.getInstance();
         ShowPurchaseDialog();
 
     }
@@ -76,7 +78,7 @@ public class UpdateListActivity extends BaseActivity {
         mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));//divide the item in the list
 
         ((SimpleItemAnimator) mrecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);// Removes blinks
-        itemViewAdapter = new ItemViewAdapter(UpdateListActivity.this, MyListActivity.itemModelArray, EnumLayoutType.UPDATE_LIST);
+        itemViewAdapter = new ItemViewAdapter(UpdateListActivity.this, BoardingActivity.itemModelArray, EnumLayoutType.UPDATE_LIST);
         mrecyclerView.setAdapter(itemViewAdapter);
     }
 
@@ -84,23 +86,24 @@ public class UpdateListActivity extends BaseActivity {
      *remove from list the items with price.
     * open pop up dialog that the list save successfully. */
     public void saveAndUpdateList(View v) throws IOException {
-        Iterator<ItemModel> iterator=MyListActivity.itemModelArray.iterator();
+        Iterator<ItemModel> iterator=BoardingActivity.itemModelArray.iterator();
         ItemModel itmodel;
         while (iterator.hasNext()){
             itmodel=iterator.next();
             if(itmodel.getItemPrice()!=0){
-                archiveItemModelArray.add(new ArchiveItemModel(itmodel.getItemName(),itmodel.getItemPrice(),place,date,itmodel.getAmount(),itmodel.getWeight(),itmodel.getBrand()));
+                BoardingActivity.archiveItemArray.add(new ArchiveItemModel(itmodel.getItemName(),itmodel.getItemPrice(),place,date,itmodel.getAmount(),itmodel.getWeight(),itmodel.getBrand()));
                // MyListActivity.itemModelArray.remove(itmodel);
                 //Removes from the itemModelArray element returned by this iterator
                 iterator.remove();
             }
         }
         //insert to archive
-        archiveItemListDao.insertAll(archiveItemModelArray);
+        archiveItemListDao.insertAll( BoardingActivity.archiveItemArray);
+        userOperation.addToArchiveFirebase( BoardingActivity.archiveItemArray);
         //update the db with the new list
         itemListDao.deleteAll();
-        itemListDao.insertAll(MyListActivity.itemModelArray);
-
+        itemListDao.insertAll(BoardingActivity.itemModelArray);
+        userOperation.setUserListToFirebase(BoardingActivity.itemModelArray);
         ShowSuccessDialog(v);
     }
 

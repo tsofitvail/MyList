@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuView;
@@ -21,8 +22,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.myListApp.mylist.Adapter.ItemViewAdapter;
 import com.myListApp.mylist.Enum.EnumLayoutType;
+import com.myListApp.mylist.Firebase.UserInfo;
+import com.myListApp.mylist.Firebase.UserOperation;
+import com.myListApp.mylist.Models.ArchiveItemModel;
 import com.myListApp.mylist.Models.ItemModel;
 import com.myListApp.mylist.SQLite.AppDatabase;
 import com.myListApp.mylist.SQLite.ArchiveItemListDao;
@@ -39,7 +48,7 @@ public class MyListActivity extends BaseActivity {
     private RecyclerView mrecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ItemViewAdapter itemViewAdapter;
-    public static List<ItemModel> itemModelArray=new ArrayList<ItemModel>();
+   // public static List<ItemModel> itemModelArray=new ArrayList<ItemModel>();
     private ItemListDao itemListDao;
     private ArchiveItemListDao archiveItemModel;
     DatePicker datePicker;
@@ -47,7 +56,8 @@ public class MyListActivity extends BaseActivity {
     LinearLayout recycleViewEmpty;
     private AutoCompleteTextView autoItemsTextView;
     //private List<ItemModel> cachedItemList=new ArrayList<ItemModel>();//Room gets only List or array
-
+    private DatabaseReference dbReference;
+    private UserOperation userOperation;
 
 
     @Override
@@ -56,7 +66,6 @@ public class MyListActivity extends BaseActivity {
        // setContentView(R.layout.activity_my_list);
       //  mAddItemDialog=new Dialog(this);
         recycleViewEmpty=findViewById(R.id.recycleViewEmpty);
-       // itemModelArray=new ArrayList<ItemModel>();
         itemListDao=AppDatabase.getInstance(this).itemListDao();
         archiveItemModel=AppDatabase.getInstance(this).archiveItemListDao();
         Bundle bundle=getIntent().getExtras();
@@ -64,8 +73,45 @@ public class MyListActivity extends BaseActivity {
             String myName=bundle.getString("DISPLAY_NAME");
             Toast.makeText(this,"ברוך הבא "+myName,Toast.LENGTH_LONG).show();
         }
-    }
+        userOperation=UserOperation.getInstance();
 
+
+
+
+    }
+    public void fireBase(){
+        List<ItemModel> list=BoardingActivity.itemModelArray;
+        list.add(new ItemModel("milk",2,3,4,"osem"));
+        UserOperation.getInstance().insertNewUser(new UserInfo("tsofitvail@gmail.com","tsofit",list,new ArrayList<>()));
+        UserOperation.getInstance().getUserDetailsByEmail("tsofitvail@gmail.com");
+        dbReference= FirebaseDatabase.getInstance().getReference();
+        //   dbReference.child("users").setValue(new ItemModel("banana",2,3,4,"osem"));
+        // dbReference.child("users").setValue(new ItemModel("melon",4,3,4,"dsfd"));
+        //  dbReference.push().setValue(new ItemModel("banana",2,3,4,"osem"));
+        String userId = dbReference.push().getKey().toString();
+        dbReference.child("users").child(userId).setValue(new ItemModel("milk",2,3,4,"osem"));
+        dbReference.child("users").orderByChild("name").equalTo("milk").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> data=dataSnapshot.getChildren();
+                for(DataSnapshot user:data){
+                    ItemModel item=user.getValue(ItemModel.class);
+                    if(item.getItemName().equals("milk")){
+                        item.setItemName("bread");
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_my_list;
@@ -80,13 +126,13 @@ public class MyListActivity extends BaseActivity {
         //divide the item in the list
         mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
 
-        itemModelArray=itemListDao.getAll();
-        if(itemModelArray.isEmpty()){
+       // itemModelArray=itemListDao.getAll();
+        if(BoardingActivity.itemModelArray.isEmpty()){
             recycleViewEmpty.setVisibility(View.VISIBLE);
             mrecyclerView.setVisibility(View.GONE);
         }
 
-        itemViewAdapter = new ItemViewAdapter(MyListActivity.this,itemModelArray, EnumLayoutType.MY_LIST);
+        itemViewAdapter = new ItemViewAdapter(MyListActivity.this,BoardingActivity.itemModelArray, EnumLayoutType.MY_LIST);
         mrecyclerView.setAdapter(itemViewAdapter);
         //Attach ItemTouchHelper to the Recyclerview
         ItemTouchHelper itemTouchHelper = new
@@ -118,8 +164,8 @@ public class MyListActivity extends BaseActivity {
                 String item = mAddItem.getText().toString();
                 if (!item.equals("")) {
                     Boolean itemExist = false;
-                    for (int i = 0; i < itemModelArray.size(); i++) {
-                        if (itemModelArray.get(i).getItemName().equals(item)) {
+                    for (int i = 0; i < BoardingActivity.itemModelArray.size(); i++) {
+                        if (BoardingActivity.itemModelArray.get(i).getItemName().equals(item)) {
                             Toast.makeText(getApplicationContext(), "הפריט שרשמת כבר נמצא ברשימה", Toast.LENGTH_SHORT).show();
                             itemExist = true;
                             break;
@@ -128,7 +174,7 @@ public class MyListActivity extends BaseActivity {
                     if (!itemExist) {
                         recycleViewEmpty.setVisibility(View.GONE);
                         mrecyclerView.setVisibility(View.VISIBLE);
-                        itemModelArray.add(new ItemModel(item));
+                        BoardingActivity.itemModelArray.add(new ItemModel(item));
                         itemViewAdapter.notifyDataSetChanged();
                         mAddItem.setText("");
                         //create snack bar with the new item
@@ -155,43 +201,12 @@ public class MyListActivity extends BaseActivity {
     }
 
     public void ShowPurchaseDialog(View v){
-        if(MyListActivity.itemModelArray.isEmpty())
+        if(BoardingActivity.itemModelArray.isEmpty())
             Toast.makeText(getApplicationContext(),"הרשימה שלך ריקה,"+"\n"+"אין לך מה לעדכן כרגע",Toast.LENGTH_LONG).show();
         else{
             Intent intent=new Intent(v.getContext(), UpdateListActivity.class);
             startActivity(intent);
         }
-
-      /*  View viewDialog=getLayoutInflater().inflate(R.layout.dialog_purchase,null);
-        Button addPriceBtn=viewDialog.findViewById(R.id.addPriceBtn);
-        place=viewDialog.findViewById(R.id.place);
-
-        AddAutocompleteTextView(place, archiveItemModel.getDistinctPlaces());
-
-        datePicker=viewDialog.findViewById(R.id.datePicker);
-        addPriceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int day = datePicker.getDayOfMonth();
-                int month = datePicker.getMonth();
-                int year = datePicker.getYear();
-
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-
-                GregorianCalendar d = new GregorianCalendar(year, month, day);
-                String strDate = dateFormatter.format(d.getTime());
-                Intent intent=new Intent(v.getContext(), UpdateListActivity.class);
-                intent.putExtra("PLACE",place.getText().toString());
-                intent.putExtra("DATE_OF_PURCHASE",strDate);
-                startActivity(intent);
-
-            }
-        });
-        AlertDialog purchaseDialog = new AlertDialog.Builder(this)
-                .setView(viewDialog)
-                .create();
-
-        purchaseDialog.show();*/
 
     }
 
@@ -215,7 +230,9 @@ public class MyListActivity extends BaseActivity {
     @Override
     protected void onPause() {
         itemListDao.deleteAll();
-        itemListDao.insertAll(itemModelArray);
+        itemListDao.insertAll(BoardingActivity.itemModelArray);
+        if(!BoardingActivity.itemModelArray.isEmpty())
+            userOperation.setUserListToFirebase(BoardingActivity.itemModelArray);
         Toast.makeText(getApplicationContext(), "onPauseCall", Toast.LENGTH_SHORT).show();
         super.onPause();
     }

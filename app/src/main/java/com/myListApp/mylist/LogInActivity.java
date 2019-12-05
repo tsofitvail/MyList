@@ -43,6 +43,7 @@ public class LogInActivity extends AppCompatActivity {
             Intent intent = new Intent(this, BoardingActivity.class);
             intent.putExtra("DISPLAY_NAME",auth.getCurrentUser().getDisplayName());
             intent.putExtra("IS_SIGN_UP",0);
+            intent.putExtra("EMAIL",auth.getCurrentUser().getEmail());
             startActivity(intent);
             finish();
         } else {
@@ -66,6 +67,7 @@ public class LogInActivity extends AppCompatActivity {
                   Intent intent=new Intent(this, BoardingActivity.class);
                   intent.putExtra("DISPLAY_NAME",auth.getCurrentUser().getDisplayName());
                   intent.putExtra("IS_SIGN_UP",0);
+                  intent.putExtra("EMAIL",auth.getCurrentUser().getEmail());
                   startActivity(intent);
                   finish();
               }

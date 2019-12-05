@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myListApp.mylist.BoardingActivity;
 import com.myListApp.mylist.Models.ArchiveItemModel;
 import com.myListApp.mylist.Models.BoardingModel;
 import com.myListApp.mylist.MyListActivity;
@@ -55,14 +56,17 @@ public class BoardingAdapter extends RecyclerView.Adapter<BoardingAdapter.Boardi
             Intent intent=new Intent();
             String  activity=boardingModels.get(position).getActivity();
             intent.setClassName(v.getContext(),activity);
-            if(activity.contains("UpdateListActivity")&& MyListActivity.itemModelArray.isEmpty())
+            if(activity.contains("UpdateListActivity")&& BoardingActivity.itemModelArray.isEmpty())
                 Toast.makeText(context,"הרשימה שלך ריקה,"+"\n"+"אין לך מה לעדכן כרגע",Toast.LENGTH_LONG).show();
             else {
                 List<ArchiveItemModel> archivemList = AppDatabase.getInstance(context).archiveItemListDao().getAll();
-                if (archivemList.isEmpty() && activity.contains("ComparePriceActivity"))
+                if (BoardingActivity.archiveItemArray.isEmpty() && activity.contains("ComparePriceActivity"))
                     Toast.makeText(context, "לא נשמרו מוצרים בארכיון," + "\n" + "אין לך מה להשוות כרגע", Toast.LENGTH_LONG).show();
-                else
+                else{
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                }
+
             }
         });
     }

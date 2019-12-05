@@ -51,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, BoardingActivity.class);
                     intent.putExtra("DISPLAY_NAME",displayName);
                     intent.putExtra("IS_SIGN_UP",1);
+                    intent.putExtra("EMAIL",email);
                     startActivity(intent);
                     finish();
                 } else {
