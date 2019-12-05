@@ -28,9 +28,6 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-
-
-
         passwordEditText = findViewById(R.id.password);
         emailEditText = findViewById(R.id.email);
         signupButton = findViewById(R.id.signup_btn);
@@ -39,7 +36,7 @@ public class LogInActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         //check if the user is already connected
         if (auth.getCurrentUser() != null) {
-            Toast.makeText(this, "Already logged in", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Already logged in", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, BoardingActivity.class);
             intent.putExtra("DISPLAY_NAME",auth.getCurrentUser().getDisplayName());
             intent.putExtra("IS_SIGN_UP",0);
@@ -47,7 +44,7 @@ public class LogInActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            Toast.makeText(this, "Not logged in", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Not logged in", Toast.LENGTH_LONG).show();
         }
 
 
@@ -98,7 +95,6 @@ public class LogInActivity extends AppCompatActivity {
                 });
 
             });
-
             insertEmailDialog.show();
         });
 

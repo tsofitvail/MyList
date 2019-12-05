@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="הרשימה עודכנה בהצלחה!"
+        android:text="@string/textView_listSucessfulUpdate"
         android:gravity="center"
         android:textSize="30dp"
         android:background="@color/blue"
@@ -18,14 +17,12 @@
         style="@style/TextView"
 
         />
-
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/backtoList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:color="@color/blue"
-        android:text="המשך"
+        android:text="@string/button_next"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -33,11 +30,6 @@
         app:cornerRadius="0dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-
-
-
-
         />
-
 
 </LinearLayout>

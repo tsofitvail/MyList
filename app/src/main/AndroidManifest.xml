@@ -22,7 +22,6 @@
         <activity android:name=".MyListActivity" />
         <activity android:name=".UpdateListActivity" />
         <activity android:name=".ComparePriceActivity" />
-        <activity android:name=".ResultActivity"/>
         <activity android:name=".SignUpActivity"
             android:theme="@style/NoActionBar"/>
         <service

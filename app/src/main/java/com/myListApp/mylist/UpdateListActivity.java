@@ -42,7 +42,6 @@ public class UpdateListActivity extends BaseActivity {
     private RecyclerView mrecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ItemViewAdapter itemViewAdapter;
-    //public static List<ArchiveItemModel> =new ArrayList<ArchiveItemModel>();
     private ItemListDao itemListDao;
     private ArchiveItemListDao archiveItemListDao;
     private String place,date;
@@ -54,7 +53,6 @@ public class UpdateListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_update_list);
         archiveItemListDao= AppDatabase.getInstance(this).archiveItemListDao();
         itemListDao=AppDatabase.getInstance(this).itemListDao();
         txtplace=findViewById(R.id.place);
@@ -76,7 +74,6 @@ public class UpdateListActivity extends BaseActivity {
         mrecyclerView.setLayoutManager(layoutManager);
         mrecyclerView.setHasFixedSize(true);
         mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));//divide the item in the list
-
         ((SimpleItemAnimator) mrecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);// Removes blinks
         itemViewAdapter = new ItemViewAdapter(UpdateListActivity.this, BoardingActivity.itemModelArray, EnumLayoutType.UPDATE_LIST);
         mrecyclerView.setAdapter(itemViewAdapter);
@@ -92,8 +89,6 @@ public class UpdateListActivity extends BaseActivity {
             itmodel=iterator.next();
             if(itmodel.getItemPrice()!=0){
                 BoardingActivity.archiveItemArray.add(new ArchiveItemModel(itmodel.getItemName(),itmodel.getItemPrice(),place,date,itmodel.getAmount(),itmodel.getWeight(),itmodel.getBrand()));
-               // MyListActivity.itemModelArray.remove(itmodel);
-                //Removes from the itemModelArray element returned by this iterator
                 iterator.remove();
             }
         }
@@ -131,7 +126,6 @@ public class UpdateListActivity extends BaseActivity {
         datePicker=viewDialog.findViewById(R.id.datePicker);
         datePicker.setMaxDate(System.currentTimeMillis());//disable future date
         addPriceBtn.setOnClickListener(v1 -> {
-        //    hideKeyboard();
             GetPlaceAndDateValue();
         });
 

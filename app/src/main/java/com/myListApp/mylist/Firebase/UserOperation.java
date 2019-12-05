@@ -59,19 +59,15 @@ public class UserOperation {
                 for(DataSnapshot user:data){
                     UserInfo item=user.getValue(UserInfo.class);
                     if(item.getEmail().equals(email)){
-                        user.getRef().child("name").setValue("tsuf");
                         GenericTypeIndicator<List<ItemModel>> genericTypeIndicatorList=new GenericTypeIndicator<List<ItemModel>>() {};
                         List<ItemModel> myList=user.child("MyList").getValue(genericTypeIndicatorList);
                         if(myList!=null) {
-                          //  MyListActivity.itemModelArray.addAll(myList);
                             BoardingActivity.itemModelArray.addAll(myList);
-                          //  BoardingActivity.itemModelArray.addAll(myList);
                         }
                         GenericTypeIndicator<List<ArchiveItemModel>> genericTypeIndicatorArchive=new GenericTypeIndicator<List<ArchiveItemModel>>() {};
                         List<ArchiveItemModel> archiveList=user.child("archiveList").getValue(genericTypeIndicatorArchive);
                         if(archiveList!=null)
                             BoardingActivity.archiveItemArray.addAll(archiveList);
-
                     }
                 }
             }
@@ -87,7 +83,7 @@ public class UserOperation {
     }
 
     /*
-    insert user item list to firebase
+    insert user list to firebase
      */
     public void setUserListToFirebase(List<ItemModel> list){
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,13 +116,11 @@ public class UserOperation {
                 for(DataSnapshot user:data){
                     UserInfo item=user.getValue(UserInfo.class);
                     if(item.getEmail().equals(email)){
-                        //user.getRef().child("ArchiveList").setValue(archiveList);
                         GenericTypeIndicator<List<ArchiveItemModel>> genericTypeIndicatorArchive=new GenericTypeIndicator<List<ArchiveItemModel>>() {};
                         List<ArchiveItemModel> archiveListFirebase=user.child("archiveList").getValue(genericTypeIndicatorArchive);
                         if(archiveListFirebase!=null)
                             archiveList.addAll(archiveListFirebase);
                         user.getRef().child("archiveList").setValue(archiveList);
-
                     }
                 }
             }

@@ -28,8 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void createCustomActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        //actionBar.setLogo(R.drawable.ic_grocery_launcher);
-       // actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setCustomView(R.layout.custum_action_bar);
@@ -37,14 +35,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         ImageView logOut=v.findViewById(R.id.logout_btn);
         logOut.setOnClickListener(v1 -> {
             AlertDialog dialog=new AlertDialog.Builder(this).create();
-            dialog.setMessage("האם אתה בטוח שברצונך לצאת מחשבונך?");
+            dialog.setMessage(getApplicationContext().getResources().getString(R.string.message_question_logout));
             dialog.setIcon(R.drawable.ic_log_out);
-            dialog.setButton(AlertDialog.BUTTON_POSITIVE, "כן", (dialog1, which) -> {
+            String positiveAnswer=getApplicationContext().getResources().getString(R.string.button_positive);
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE, positiveAnswer, (dialog1, which) -> {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent=new Intent(this,LogInActivity.class);
                 startActivity(intent);
             });
-            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "לא", (dialog12, which) -> dialog12.dismiss());
+            String negativeAnswer=getApplicationContext().getResources().getString(R.string.button_negative);
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, negativeAnswer, (dialog12, which) -> dialog12.dismiss());
             dialog.show();
         });
 

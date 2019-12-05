@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@drawable/popup_background"
     android:padding="10dp"
-
     >
         <TextView
             android:id="@+id/txtclose"
@@ -15,14 +14,12 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             />
-
         <TextView
             style="@style/PopUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-
-            android:text="שם הפריט:"
+            android:text="@string/textView_title_productName"
             android:textColor="@color/colorPrimary"/>
 
         <android.widget.AutoCompleteTextView
@@ -32,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
-            android:hint="הכנס שם מוצר.."
+            android:hint="@string/editText_hint_insertProductName"
             android:maxLength="20"
             android:inputType="text|textVisiblePassword"
             android:textAlignment="center"
@@ -44,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="הוסף לרשימה"/>
+            android:text="@string/button_addToList"/>
 
 
 </LinearLayout>

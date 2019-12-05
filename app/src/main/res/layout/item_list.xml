@@ -9,13 +9,9 @@
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="item"
+        android:text="@string/textView_itemName"
         android:textSize="25dp"
         style="@style/ItemList">
-
-
-
     </TextView>
-
 
 </LinearLayout>

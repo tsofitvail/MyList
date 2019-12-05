@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +29,6 @@ import com.myListApp.mylist.Adapter.ItemViewAdapter;
 import com.myListApp.mylist.Enum.EnumLayoutType;
 import com.myListApp.mylist.Firebase.UserInfo;
 import com.myListApp.mylist.Firebase.UserOperation;
-import com.myListApp.mylist.Models.ArchiveItemModel;
 import com.myListApp.mylist.Models.ItemModel;
 import com.myListApp.mylist.SQLite.AppDatabase;
 import com.myListApp.mylist.SQLite.ArchiveItemListDao;
@@ -42,20 +39,12 @@ import java.util.List;
 
 
 public class MyListActivity extends BaseActivity {
-
-   // private Dialog mAddItemDialog;
-
     private RecyclerView mrecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ItemViewAdapter itemViewAdapter;
-   // public static List<ItemModel> itemModelArray=new ArrayList<ItemModel>();
     private ItemListDao itemListDao;
     private ArchiveItemListDao archiveItemModel;
-    DatePicker datePicker;
-    AutoCompleteTextView place;
     LinearLayout recycleViewEmpty;
-    private AutoCompleteTextView autoItemsTextView;
-    //private List<ItemModel> cachedItemList=new ArrayList<ItemModel>();//Room gets only List or array
     private DatabaseReference dbReference;
     private UserOperation userOperation;
 
@@ -63,8 +52,6 @@ public class MyListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_my_list);
-      //  mAddItemDialog=new Dialog(this);
         recycleViewEmpty=findViewById(R.id.recycleViewEmpty);
         itemListDao=AppDatabase.getInstance(this).itemListDao();
         archiveItemModel=AppDatabase.getInstance(this).archiveItemListDao();
@@ -74,44 +61,8 @@ public class MyListActivity extends BaseActivity {
             Toast.makeText(this,"ברוך הבא "+myName,Toast.LENGTH_LONG).show();
         }
         userOperation=UserOperation.getInstance();
-
-
-
-
     }
-    public void fireBase(){
-        List<ItemModel> list=BoardingActivity.itemModelArray;
-        list.add(new ItemModel("milk",2,3,4,"osem"));
-        UserOperation.getInstance().insertNewUser(new UserInfo("tsofitvail@gmail.com","tsofit",list,new ArrayList<>()));
-        UserOperation.getInstance().getUserDetailsByEmail("tsofitvail@gmail.com");
-        dbReference= FirebaseDatabase.getInstance().getReference();
-        //   dbReference.child("users").setValue(new ItemModel("banana",2,3,4,"osem"));
-        // dbReference.child("users").setValue(new ItemModel("melon",4,3,4,"dsfd"));
-        //  dbReference.push().setValue(new ItemModel("banana",2,3,4,"osem"));
-        String userId = dbReference.push().getKey().toString();
-        dbReference.child("users").child(userId).setValue(new ItemModel("milk",2,3,4,"osem"));
-        dbReference.child("users").orderByChild("name").equalTo("milk").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> data=dataSnapshot.getChildren();
-                for(DataSnapshot user:data){
-                    ItemModel item=user.getValue(ItemModel.class);
-                    if(item.getItemName().equals("milk")){
-                        item.setItemName("bread");
 
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_my_list;
@@ -123,20 +74,14 @@ public class MyListActivity extends BaseActivity {
         layoutManager=new LinearLayoutManager(this);
         mrecyclerView.setLayoutManager(layoutManager);
         mrecyclerView.setHasFixedSize(true);
-        //divide the item in the list
-        mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-
-       // itemModelArray=itemListDao.getAll();
+        mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));//divide the item in the list
         if(BoardingActivity.itemModelArray.isEmpty()){
             recycleViewEmpty.setVisibility(View.VISIBLE);
             mrecyclerView.setVisibility(View.GONE);
         }
-
         itemViewAdapter = new ItemViewAdapter(MyListActivity.this,BoardingActivity.itemModelArray, EnumLayoutType.MY_LIST);
         mrecyclerView.setAdapter(itemViewAdapter);
-        //Attach ItemTouchHelper to the Recyclerview
-        ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new SwipeToDeleteItem(itemViewAdapter));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteItem(itemViewAdapter));//Attach ItemTouchHelper to the Recyclerview
         itemTouchHelper.attachToRecyclerView(mrecyclerView);
     }
 
@@ -146,7 +91,6 @@ public class MyListActivity extends BaseActivity {
         AlertDialog mAddItemDialog = new AlertDialog.Builder(this)
                 .setView(viewDialog)
                 .create();
-
         TextView txtclose;
         Button btnAddItem;
 
@@ -177,8 +121,6 @@ public class MyListActivity extends BaseActivity {
                         BoardingActivity.itemModelArray.add(new ItemModel(item));
                         itemViewAdapter.notifyDataSetChanged();
                         mAddItem.setText("");
-                        //create snack bar with the new item
-                        // createSnackbar(v,item);
                         Toast.makeText(getApplicationContext(), "הפריט נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -194,7 +136,6 @@ public class MyListActivity extends BaseActivity {
     add autocomplete to edit text
      */
     private void AddAutocompleteTextView(AutoCompleteTextView autoCompleteTextView,List<String> list) {
-       // autoCompleteTextView=d.findViewById(R.id.item);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, android.R.layout.select_dialog_item,list);
         autoCompleteTextView.setThreshold(1);//will start working from first character
         autoCompleteTextView.setAdapter(adapter);
@@ -210,36 +151,17 @@ public class MyListActivity extends BaseActivity {
 
     }
 
-    private void createSnackbar(View v,String item) {
-        // create instance
-        item=item.concat(" נוסף בהצלחה!");
-        Snackbar snackbar = Snackbar.make(v, item, Snackbar.LENGTH_LONG);
-
-        // set text color
-        snackbar.setActionTextColor(getResources().getColor(R.color.white));
-        //set background color
-        snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        //set text direction color
-        snackbar.getView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-
-        snackbar.show();
-
-    }
-
-
     @Override
     protected void onPause() {
         itemListDao.deleteAll();
         itemListDao.insertAll(BoardingActivity.itemModelArray);
         if(!BoardingActivity.itemModelArray.isEmpty())
             userOperation.setUserListToFirebase(BoardingActivity.itemModelArray);
-        Toast.makeText(getApplicationContext(), "onPauseCall", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        Toast.makeText(getApplicationContext(), "onResumeCall", Toast.LENGTH_SHORT).show();
         initRecyclerView();
         super.onResume();
     }

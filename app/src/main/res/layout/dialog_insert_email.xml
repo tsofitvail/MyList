@@ -8,7 +8,7 @@
         android:id="@+id/emailToReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="...הכנס את המייל שלך כאן"
+        android:hint="@string/hint_editText_email"
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_margin="10dp"
@@ -17,6 +17,6 @@
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="אפס סיסמה"
+        android:text="@string/button_resetPassword"
         android:layout_gravity="center"/>
 </LinearLayout>

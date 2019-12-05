@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +22,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="insert email here..."/>
+                android:hint="@string/hint_editText_email"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,7 +34,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="insert password here..."
+                android:hint="@string/hint_editText_password"
                 android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -47,13 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:text="log in"/>
+            android:text="@string/button_login"/>
 
         <TextView
             android:id="@+id/resetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Forgot password?"
+            android:text="@string/button_forgotPassword"
             android:layout_gravity="center"
             android:clickable="true"/>
 
@@ -70,7 +67,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="OR"
+                android:text="or"
                 android:textColor="#000000"/>
 
             <View
@@ -96,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:text="sign up" />
+            android:text="@string/button_signup" />
 
     </LinearLayout>
 

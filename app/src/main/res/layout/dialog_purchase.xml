@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:layout_gravity="center"
-        android:text="אז איפה קנית?"
+        android:text="@string/textView_whereDidYouBuy"
         android:textColor="@color/colorPrimary"
         android:textSize="15dp"
         android:textStyle="bold"></TextView>
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="0dp"
-        android:text="באיזה תאריך התבצעה הקנייה?"
+        android:text="@string/textView_whenDidYouBuy"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:textSize="15dp"></TextView>
@@ -48,10 +48,8 @@
         android:id="@+id/addPriceBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="הוסף מחירים"
+        android:text="@string/button_addItem"
         android:layout_gravity="center"
         ></com.google.android.material.button.MaterialButton>
-
-
 
 </LinearLayout>

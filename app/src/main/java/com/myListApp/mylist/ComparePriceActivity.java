@@ -38,7 +38,6 @@ public class ComparePriceActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.activity_compare_price);
         final HorizontalScrollView scrollView=(HorizontalScrollView)findViewById(R.id.horizontalScrollView);
         scrollView.postDelayed(new Runnable() {
             public void run() {
@@ -61,19 +60,15 @@ public class ComparePriceActivity extends BaseActivity {
         itemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
          @Override
           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                                      chosenItemSpinner = (String) parent.getItemAtPosition(position);
-                                                      addDetailsToAdapter();
-                                                  }
+             chosenItemSpinner = (String) parent.getItemAtPosition(position);
+             addDetailsToAdapter(); }
           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
+           public void onNothingSelected(AdapterView<?> parent) { }});
 
-                                                  }});
-        //get a list of items for the spinner.
-        items=archiveItemListDao.getDistinctNames();
+        items=archiveItemListDao.getDistinctNames();//get a list of items for the spinner.
         chosenItemSpinner=items.get(0);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
-        itemSpinner.setAdapter(adapter);
+        itemSpinner.setAdapter(adapter);//set the spinners adapter to the previously created one.
     }
 
 
@@ -82,8 +77,7 @@ public class ComparePriceActivity extends BaseActivity {
         layoutManager=new LinearLayoutManager(this);
         mrecyclerView.setLayoutManager(layoutManager);
         mrecyclerView.setHasFixedSize(true);
-        //divide the item in the list
-        mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        mrecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));//divide the item in the list
         addDetailsToAdapter();
 
     }

@@ -32,8 +32,6 @@ public class SignUpActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signup_btn);
         auth = FirebaseAuth.getInstance();
 
-
-
         signupButton.setOnClickListener(v -> {
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
@@ -67,7 +65,6 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(this, "הסיסמה שהזנת חלשה מידי", Toast.LENGTH_LONG).show();
                             break;
                     }
-                    //Toast.makeText(this, "Registration Failed", Toast.LENGTH_LONG).show();
                 }
             });
         });

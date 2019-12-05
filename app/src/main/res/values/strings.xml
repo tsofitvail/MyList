@@ -1,5 +1,75 @@
 <resources>
+
     <string name="app_name">MyList</string>
-    <string name="successful_message">הפריט נוסף בהצלחה</string>
+  <!--<string name="successful_message">הפריט נוסף בהצלחה</string>-->
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+                    <!--Layouts-->
+
+                    <!--activity compare-->
+    <string name="compare_textView_itemName">:שם המוצר</string>
+    <string name="compare_textView_price">מחיר</string>
+    <string name="compare_textView_purchaseDate">תאריך קניה</string>
+    <string name="compare_textView_store">חנות</string>
+    <string name="compare_textView_brand">מותג</string>
+    <string name="compare_textView_amount">כמות</string>
+    <string name="compare_textView_weight">מחיר לקילו</string>
+
+                      <!--insert to app-->
+    <string name="hint_editText_email">הכנס את המייל כאן...</string>
+    <string name="hint_editText_password">הכנס את הסיסמה כאן...</string>
+    <string name="hint_editText_userName">הכנס את הסיסמה כאן...</string>
+    <string name="button_login">כניסה לחשבונך</string>
+    <string name="button_forgotPassword">שכחתי סיסמה</string>
+    <string name="button_signup">הירשם</string>
+    <string name="button_resetPassword">אפס סיסמה</string>
+
+                     <!--activity myList-->
+    <string name="myList_textView_messageEmptyList">הוסף פריטים לרשימה\n על ידי לחיצה על הכפתור מטה</string>
+    <string name="myList_button_updatePurchase">עדכן קנייה</string>
+    <string name="myList_button_compareItems">השווה פריט</string>
+
+                      <!--activity update list-->
+    <string name="updateList_textView_store">מקום קניה:</string>
+    <string name="updateList_textView_dateOfPurchase">תאריך קניה:</string>
+    <string name="updateList_button_saveList">שמור ועדכן רשימה</string>
+
+                        <!--dialog purchase-->
+    <string name="textView_whereDidYouBuy">אז איפה קנית?</string>
+    <string name="textView_whenDidYouBuy">באיזה תאריך התבצעה הקנייה?</string>
+    <string name="button_addItem">הוסף מחירים</string>
+
+                        <!--dialog add popup-->
+    <string name="textView_title_productName">שם הפריט:</string>
+    <string name="editText_hint_insertProductName">...הכנס שם מוצר</string>
+    <string name="button_addToList">הוסף לרשימה</string>
+
+                        <!--dialog update list-->
+    <string name="textView_listSucessfulUpdate">הרשימה עודכנה בהצלחה!</string>
+    <string name="button_next">המשך</string>
+
+                        <!--item edit list-->
+    <string name="textView_itemName">שם הפריט</string>
+
+
+                        <!--boarding adapter-->
+    <string name="toast_message_yourListIsEmpty">הרשימה שלך ריקה, \n אין לך מה לעדכן כרגע</string>
+    <string name="toast_message_noItemToCompare">לא נשמרו מוצרים בארכיון, \n אין לך מה להשוות כרגע</string>
+
+
+                        <!--item view adapter-->
+    <string name="toast_itemSuccessfullyDeleted">הפריט נמחק בהצלחה</string>
+
+
+                        <!--activities-->
+
+                        <!--base activity-->
+    <string name="message_question_logout">האם אתה בטוח שברצונך לצאת מחשבונך?</string>
+    <string name="button_positive">כן</string>
+    <string name="button_negative">לא</string>
+
+
+
+
+
 </resources>

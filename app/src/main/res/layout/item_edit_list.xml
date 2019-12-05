@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:id="@+id/itemName"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="שם הפריט"
+            android:text="@string/textView_itemName"
             android:layout_gravity="center"
             android:layout_weight="2"
             style="@style/ItemList"/>
@@ -26,7 +25,7 @@
             android:id="@+id/itemPrice"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:hint="הכנס מחיר"
+            android:hint="@string/compare_textView_price"
             android:layout_weight="2"
             style="@style/EditText"
             android:maxLength="6"
@@ -39,12 +38,7 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_keyboard_arrow_down_blue"
             android:background="@color/white"
-
-
-
-
             />
-
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +54,7 @@
             android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="כמות (בקילו)"
+            android:hint="@string/compare_textView_amount"
             android:layout_weight="1"
             style="@style/EditText"
             android:maxLength="6"
@@ -70,7 +64,7 @@
             android:id="@+id/priceforKilo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="מחיר לקילו"
+            android:hint="@string/compare_textView_weight"
             android:layout_weight="1"
             style="@style/EditText"
             android:maxLength="6"
@@ -79,7 +73,7 @@
             android:id="@+id/brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="מותג"
+            android:hint="@string/compare_textView_brand"
             android:layout_weight="1"
             style="@style/EditText"
             android:maxLength="10"

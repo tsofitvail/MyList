@@ -64,7 +64,9 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
         notifyDataSetChanged();//Notify any registered observers that the data set has changed.
     }
 
-    //inflate the view with item_list layout (without data)
+    /*
+     inflate the view with item_list layout (without data)
+     */
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(layoutType.equals(EnumLayoutType.MY_LIST))
@@ -76,7 +78,9 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
         return new ItemViewHolder(view);
     }
 
-    //insert data to the view
+    /*
+    insert data to the view
+     */
     @Override
     public void onBindViewHolder(@NonNull ItemViewAdapter.ItemViewHolder holder,int position) {
         T itemModel=itemModels.get(position);
@@ -90,13 +94,6 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                     itemTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_complete,0,0,0);
                 else
                     itemTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
-
-
-              /*  if (itemImageView.getVisibility()== View.INVISIBLE)
-                    itemImageView.setVisibility(View.VISIBLE);
-                 else
-                    itemImageView.setVisibility(View.INVISIBLE);*/
-
             });
 
         }
@@ -123,10 +120,11 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
         }
     }
 
-    //Deleting item from recycler view
+    /*
+    Deleting item from recycler view
+    save the removed item into a member variable to be used in case the user wants to undo the delete
+     */
     public void deleteItem(int position) {
-        //save the removed item into a member variable to be used in case
-        // the user wants to undo the delete
         mRecentlyDeletedItem = itemModels.get(position);
         mRecentlyDeletedItemPosition = position;
         itemModels.remove(position);
@@ -134,19 +132,18 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
         showUndoSnackbar();
     }
 
-    //show the snack bar when the item delete
+    /*
+    show the snack bar when the item delete
+     */
     private void showUndoSnackbar() {
-        Snackbar snackbar = Snackbar.make( ((Activity) context).findViewById(R.id.myList), "הפריט נמחק בהצלחה", Snackbar.LENGTH_SHORT);
-        snackbar.setAction("בטל", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ItemViewAdapter.this.undoDelete();
-            }
-        });
+        Snackbar snackbar = Snackbar.make( ((Activity) context).findViewById(R.id.myList), context.getResources().getString(R.string.toast_itemSuccessfullyDeleted), Snackbar.LENGTH_SHORT);
+        snackbar.setAction("בטל", v -> ItemViewAdapter.this.undoDelete());
         snackbar.show();
     }
 
-    //undo delete item
+    /*
+    undo delete item
+     */
     private void undoDelete() {
         itemModels.add(mRecentlyDeletedItemPosition,
                 mRecentlyDeletedItem);
@@ -243,8 +240,6 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                 checkIfDecimal(itemModel.getItemPrice(),price);
                 checkIfDecimal(itemModel.getAmount(),amount);
                 checkIfDecimal(itemModel.getWeight(),weight);
-
-
             }
         }
 
@@ -257,10 +252,6 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                 else
                     textView.setText(String.valueOf(number));
             }
-
-
-
-
         }
     }
 

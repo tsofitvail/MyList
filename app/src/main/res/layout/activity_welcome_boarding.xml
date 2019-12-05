@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     >
+
     <LinearLayout
         android:id="@+id/headlineLayout"
         android:layout_width="match_parent"
@@ -42,10 +44,33 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/boardingRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_below="@+id/headlineLayout"
+        android:visibility="gone"
 
         />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
 
-</LinearLayout>
+
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+
+
+            />
+
+
+
+
+
+
+</RelativeLayout>
