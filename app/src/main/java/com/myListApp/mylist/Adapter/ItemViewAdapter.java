@@ -90,8 +90,11 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
             //ImageView itemImageView=holder.itemView.findViewById(R.id.v_image_view);
             itemTextView.setOnClickListener(v -> {
                 Drawable[] drawables = itemTextView.getCompoundDrawables();
-                if(drawables[0]==null)
-                    itemTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_complete,0,0,0);
+                if(drawables[0]==null) {
+                    itemTextView.setBackgroundColor(context.getResources().getColor(R.color.lightGray));
+                    itemTextView.setTextColor(context.getResources().getColor(R.color.gray));
+                    //itemTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_complete,0,0,0);
+                }
                 else
                     itemTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
             });

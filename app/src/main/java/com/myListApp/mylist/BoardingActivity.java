@@ -76,14 +76,13 @@ public class BoardingActivity extends BaseActivity {
                 reloadAdapter();
             }
              else {
-                if(!itemModelArray.isEmpty())
-                    itemModelArray.clear();
-                if(!archiveItemArray.isEmpty())
-                    archiveItemArray.clear();
                 textViewWelcomUser.setText("איזה כיף שחזרת!");
                 myAsyncTask.execute(email,"true");
-
             }
+            if(!itemModelArray.isEmpty())
+                itemModelArray.clear();
+            if(!archiveItemArray.isEmpty())
+                archiveItemArray.clear();
         }
         else{
             headlineLayout.setVisibility(View.GONE);

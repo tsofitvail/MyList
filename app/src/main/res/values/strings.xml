@@ -18,7 +18,7 @@
                       <!--insert to app-->
     <string name="hint_editText_email">הכנס את המייל כאן...</string>
     <string name="hint_editText_password">הכנס את הסיסמה כאן...</string>
-    <string name="hint_editText_userName">הכנס את הסיסמה כאן...</string>
+    <string name="hint_editText_userName">הכנס את שמך כאן...</string>
     <string name="button_login">כניסה לחשבונך</string>
     <string name="button_forgotPassword">שכחתי סיסמה</string>
     <string name="button_signup">הירשם</string>
@@ -41,7 +41,7 @@
 
                         <!--dialog add popup-->
     <string name="textView_title_productName">שם הפריט:</string>
-    <string name="editText_hint_insertProductName">...הכנס שם מוצר</string>
+    <string name="editText_hint_insertProductName">הכנס שם מוצר...</string>
     <string name="button_addToList">הוסף לרשימה</string>
 
                         <!--dialog update list-->
