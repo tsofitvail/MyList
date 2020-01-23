@@ -15,14 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.myListApp.mylist.Firebase.UserInfo;
+import com.myListApp.mylist.presenter.LoginActivityPresenter;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity implements LoginActivityPresenter.View {
 
-    private FirebaseAuth auth;
     private EditText passwordEditText,emailEditText;
     private Button signupButton,loginButton;
     private TextView resetPassword;
     private String email,password;
+    private LoginActivityPresenter loginActivityPresenter;
+    private AlertDialog insertEmailDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,69 +36,52 @@ public class LogInActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signup_btn);
         loginButton = findViewById(R.id.login_btn);
         resetPassword = findViewById(R.id.resetPassword);
-        auth = FirebaseAuth.getInstance();
-        //check if the user is already connected
-        if (auth.getCurrentUser() != null) {
-            //Toast.makeText(this, "Already logged in", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, BoardingActivity.class);
-            intent.putExtra("DISPLAY_NAME",auth.getCurrentUser().getDisplayName());
-            intent.putExtra("IS_SIGN_UP",0);
-            intent.putExtra("EMAIL",auth.getCurrentUser().getEmail());
-            startActivity(intent);
-            finish();
-        } else {
-           // Toast.makeText(this, "Not logged in", Toast.LENGTH_LONG).show();
-        }
+        loginActivityPresenter=new LoginActivityPresenter( this);
+        loginActivityPresenter.checkUserLoogedIn();
+        signUpButton();
+        logInButton();
+        resetButton();
+    }
 
-
-      signupButton.setOnClickListener(v -> {
-        Intent i=new Intent(this,SignUpActivity.class);
-        startActivity(i);
-        finish();
-        });
-
-
-        loginButton.setOnClickListener(v -> {
-            email=emailEditText.getText().toString();
-            password=passwordEditText.getText().toString();
-          auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
-              if(task.isSuccessful()){
-                  Toast.makeText(this, "Successfully Loged In", Toast.LENGTH_LONG).show();
-                  Intent intent=new Intent(this, BoardingActivity.class);
-                  intent.putExtra("DISPLAY_NAME",auth.getCurrentUser().getDisplayName());
-                  intent.putExtra("IS_SIGN_UP",0);
-                  intent.putExtra("EMAIL",auth.getCurrentUser().getEmail());
-                  startActivity(intent);
-                  finish();
-              }
-              else{
-                  Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
-              }
-          });
-        });
-
-
+    /*
+    set on click listener on reset password button
+     */
+    private void resetButton(){
         resetPassword.setOnClickListener(v -> {
             View viewDialog=getLayoutInflater().inflate(R.layout.dialog_insert_email,null);
             EditText emailEditText=viewDialog.findViewById(R.id.emailToReset);
             Button sendBtn=viewDialog.findViewById(R.id.resetButton);
-            AlertDialog insertEmailDialog = new AlertDialog.Builder(this)
+            insertEmailDialog = new AlertDialog.Builder(this)
                     .setView(viewDialog)
                     .create();
             sendBtn.setOnClickListener(v1 -> {
                 String email=emailEditText.getText().toString();
-                auth.sendPasswordResetEmail(email).addOnCompleteListener(this, task ->{
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Reset link sent to your email", Toast.LENGTH_LONG).show();
-                        insertEmailDialog.dismiss();
-
-                    } else {
-                        Toast.makeText(this, "Unable to send reset mail", Toast.LENGTH_LONG).show();
-                    }
-                });
-
+                loginActivityPresenter.resetPassword(email);
             });
             insertEmailDialog.show();
+        });
+
+
+    }
+    /*
+    set on click listener on log in button
+     */
+    private void logInButton() {
+        loginButton.setOnClickListener(v -> {
+            email=emailEditText.getText().toString();
+            password=passwordEditText.getText().toString();
+            loginActivityPresenter.signInWithEmailAndPassword(email,password);
+        });
+    }
+
+    /*
+    set on click listener on sign up button
+     */
+    private void signUpButton(){
+        signupButton.setOnClickListener(v -> {
+            Intent i=new Intent(this,SignUpActivity.class);
+            startActivity(i);
+            finish();
         });
 
     }
@@ -105,6 +91,51 @@ public class LogInActivity extends AppCompatActivity {
         super.onBackPressed();
         this.finish();
         System.exit(0);
+    }
+
+    @Override
+    /*
+    move straight to boarding activity if the user already logged in
+     */
+    public void moveToNextActivity(UserInfo user) {
+        Intent intent = new Intent(this, BoardingActivity.class);
+        intent.putExtra("DISPLAY_NAME",user.getName());
+        intent.putExtra("IS_SIGN_UP",user.getIsSignUp());
+        intent.putExtra("EMAIL",user.getEmail());
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    /*
+       move straight to boarding activity if login successful
+     */
+    public void loginSuccessful(UserInfo userInfo) {
+        Intent intent=new Intent(this, BoardingActivity.class);
+        intent.putExtra("DISPLAY_NAME",userInfo.getName());
+        intent.putExtra("IS_SIGN_UP",userInfo.getIsSignUp());
+        intent.putExtra("EMAIL",userInfo.getEmail());
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    /*
+    massage if log in failed
+     */
+    public void loginFail() {
+        Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void resetSucceed() {
+        Toast.makeText(this, "Reset link sent to your email", Toast.LENGTH_LONG).show();
+        insertEmailDialog.dismiss();
+    }
+
+    @Override
+    public void resetFailed() {
+        Toast.makeText(this, "Unable to send reset mail", Toast.LENGTH_LONG).show();
     }
 }
 

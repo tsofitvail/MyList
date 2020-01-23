@@ -89,16 +89,11 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
             TextView itemTextView=holder.itemView.findViewById(R.id.itemName);
             //ImageView itemImageView=holder.itemView.findViewById(R.id.v_image_view);
             itemTextView.setOnClickListener(v -> {
-                Drawable[] drawables = itemTextView.getCompoundDrawables();
-                if(drawables[0]==null) {
-                    itemTextView.setBackgroundColor(context.getResources().getColor(R.color.lightGray));
-                    itemTextView.setTextColor(context.getResources().getColor(R.color.gray));
-                    //itemTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_complete,0,0,0);
-                }
-                else
-                    itemTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
+                boolean isMarked=itemModel.isMarked();
+                itemModel.setMarked(!isMarked);
+                // Notify the adapter that item has changed
+                ItemViewAdapter.this.notifyItemChanged(position);
             });
-
         }
         if(layoutType.equals(EnumLayoutType.UPDATE_LIST)) {
             ImageButton viewMoreBtn=holder.itemView.findViewById(R.id.viewMoreBtn);
@@ -228,6 +223,21 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
             if((layoutType.equals(EnumLayoutType.UPDATE_LIST))||(layoutType.equals(EnumLayoutType.MY_LIST)))
             {
                 itemName.setText(itemModel.getItemName());
+
+            }
+            if(layoutType.equals(EnumLayoutType.MY_LIST)){
+                boolean marked=itemModel.isMarked();
+                if(marked) {
+                    //itemName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_complete, 0, 0, 0);
+                    itemName.setTextColor(context.getResources().getColor(R.color.gray));
+                    itemName.setBackgroundColor(context.getResources().getColor(R.color.lightGray));
+
+                }
+                else {
+                    itemName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                    itemName.setBackgroundColor(context.getResources().getColor(R.color.white));
+                   // itemName.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
 
             }
 

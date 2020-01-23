@@ -22,12 +22,23 @@ public class ItemModel {
 
     private boolean isExpended;
 
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public void setMarked(boolean marked) {
+        isMarked = marked;
+    }
+
+    private boolean isMarked;
+
     public ItemModel(){this.Id= UUID.randomUUID().toString();}
 
     public ItemModel(String name){
         this.Id= UUID.randomUUID().toString();
         this.itemName=name;
         this.isExpended=false;
+        this.isMarked=false;
     }
 
     public ItemModel(String name,double itemPrice,double amount,double weight,String brand){

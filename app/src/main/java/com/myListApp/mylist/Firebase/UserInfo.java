@@ -11,6 +11,7 @@ public class UserInfo {
     private String name;
     private List<ItemModel> myList;
     private List<ArchiveItemModel> archiveList;
+    private int isSignUp;
 
     public UserInfo(){};
 
@@ -19,6 +20,15 @@ public class UserInfo {
         this.name = name;
         this.myList = myList;
         this.archiveList = archiveList;
+        this.isSignUp=0;
+    }
+
+    public int getIsSignUp() {
+        return isSignUp;
+    }
+
+    public void setIsSignUp(int isSignUp) {
+        this.isSignUp = isSignUp;
     }
 
     public String getEmail() {

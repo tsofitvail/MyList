@@ -58,14 +58,10 @@
             android:indeterminate="true"
             android:minHeight="50dp"
             android:minWidth="50dp"
-
-
             android:layout_gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:visibility="visible"
-
-
             />
 
 
