@@ -1,6 +1,7 @@
 package com.myListApp.mylist;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,17 +21,20 @@ import com.myListApp.mylist.presenter.LoginActivityPresenter;
 
 public class LogInActivity extends AppCompatActivity implements LoginActivityPresenter.View {
 
+    public static final String MyPREFERENCES = "MyPrefs" ;
     private EditText passwordEditText,emailEditText;
     private Button signupButton,loginButton;
     private TextView resetPassword;
     private String email,password;
     private LoginActivityPresenter loginActivityPresenter;
     private AlertDialog insertEmailDialog;
+    public static SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, getApplicationContext().MODE_PRIVATE);
         passwordEditText = findViewById(R.id.password);
         emailEditText = findViewById(R.id.email);
         signupButton = findViewById(R.id.signup_btn);
@@ -123,8 +127,12 @@ public class LogInActivity extends AppCompatActivity implements LoginActivityPre
     /*
     massage if log in failed
      */
-    public void loginFail() {
-        Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
+    public void loginFail(boolean isverifyEmail) {
+        if(!isverifyEmail)
+            Toast.makeText(this, "כדי להתחבר,אנא אשר את כתובת המייל שלך בלינק שנשלח אליך למייל", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
+
     }
 
     @Override

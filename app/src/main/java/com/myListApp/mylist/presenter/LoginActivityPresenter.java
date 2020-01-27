@@ -1,14 +1,21 @@
 package com.myListApp.mylist.presenter;
 
+import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AdditionalUserInfo;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUserMetadata;
 import com.myListApp.mylist.Firebase.UserInfo;
+import com.myListApp.mylist.LogInActivity;
+import com.myListApp.mylist.MyListActivity;
 
 public class LoginActivityPresenter {
 
@@ -26,7 +33,7 @@ public class LoginActivityPresenter {
       check if the user is already connected
      */
     public void checkUserLoogedIn(){
-        if (auth.getCurrentUser() != null) {
+        if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
             userInfo.setName(auth.getCurrentUser().getDisplayName());
             userInfo.setEmail(auth.getCurrentUser().getEmail());
             view.moveToNextActivity(userInfo);
@@ -41,15 +48,36 @@ public class LoginActivityPresenter {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    userInfo.setName(auth.getCurrentUser().getDisplayName());
-                    userInfo.setEmail(auth.getCurrentUser().getEmail());
-                    userInfo.setIsSignUp(0);
-                    view.loginSuccessful(userInfo);
+                    checkIfEmailVerified();
                 }
                 else
-                    view.loginFail();
+                    view.loginFail(true);
             }
         });
+
+    }
+
+    private void checkIfEmailVerified() {
+        if(!auth.getCurrentUser().isEmailVerified()){
+           auth.signOut();
+           view.loginFail(false);
+        }
+        else{
+            SharedPreferences sharedPref=LogInActivity.sharedpreferences;
+            boolean isSignUp=sharedPref.getBoolean(auth.getCurrentUser().getEmail(),false);
+            if(isSignUp) {
+                userInfo.setIsSignUp(1);
+                SharedPreferences.Editor editor = LogInActivity.sharedpreferences.edit();
+                editor.putBoolean(auth.getCurrentUser().getEmail(),false);
+                editor.commit();
+            }
+            userInfo.setName(auth.getCurrentUser().getDisplayName());
+            userInfo.setEmail(auth.getCurrentUser().getEmail());
+            //userInfo.setIsSignUp(0);
+            view.loginSuccessful(userInfo);
+        }
+
+
 
     }
 
@@ -70,7 +98,7 @@ public class LoginActivityPresenter {
     public interface View{
         void moveToNextActivity(UserInfo userInfo);
         void loginSuccessful(UserInfo userInfo);
-        void loginFail();
+        void loginFail(boolean isverifyEmail);
         void resetSucceed();
         void resetFailed();
 

@@ -7,6 +7,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,6 +77,7 @@ public class BoardingPresenter {
         sb.append(",").append(" ").append(myName).append(" ").append("היי");
         int isSignUp = bundle.getInt("IS_SIGN_UP");
         String email = bundle.getString("EMAIL");
+        BoardingActivity.email=email;
         userInfo.setEmail(email);
         userInfo.setIsSignUp(isSignUp);
         userInfo.setName(myName);
@@ -80,7 +85,7 @@ public class BoardingPresenter {
     }
 
     public void checkIfAlreadySignup(){
-        setBoardingModelList();
+       // setBoardingModelList();
         if(userInfo.getIsSignUp()==1){
             view.setWelcomeMessage();
             userOperation.insertNewUser(new UserInfo(userInfo.getEmail(),userInfo.getName(),new ArrayList<>(),new ArrayList<>()));
@@ -89,6 +94,7 @@ public class BoardingPresenter {
             view.reloadAdapter(boardingModelList);
         }
         else {
+            setBoardingModelList();
             view.setReturnMessage();
             MyAsyncTask myAsyncTask=new MyAsyncTask();
             myAsyncTask.execute(userInfo.getEmail(),"true");
@@ -97,10 +103,11 @@ public class BoardingPresenter {
     }
 
     public void setBoardingModelList() {
-        boardingModelList.add(new BoardingModel(R.drawable.ic_basket,"יצירת רשימה קניות","הוסיפו פריטים לרשימה כך שלכל מקום שתלכו,לא תשכחו מה צריך לקנות", MyListActivity.class.getName()));
-        boardingModelList.add(new BoardingModel(R.drawable.ic_update_details,"עדכון הפריטים ברשימה","הוסיפו לכל פריט שקניתם את מחירו,מותג ומאפיינים נוספים שישמשו להשוואה עתידית", UpdateListActivity.class.getName()));
-        boardingModelList.add(new BoardingModel(R.drawable.ic_compare_price,"השוו מחיר מוצר","השוו מחיר של כל מוצר שקניתם וכך תוכלו לבצע קניה חכמה יותר", ComparePriceActivity.class.getName()));
-
+        if(boardingModelList.isEmpty()) {
+            boardingModelList.add(new BoardingModel(R.drawable.ic_basket, "יצירת רשימה קניות", "הוסיפו פריטים לרשימה כך שלכל מקום שתלכו,לא תשכחו מה צריך לקנות", MyListActivity.class.getName()));
+            boardingModelList.add(new BoardingModel(R.drawable.ic_update_details, "עדכון הפריטים ברשימה", "הוסיפו לכל פריט שקניתם את מחירו,מותג ומאפיינים נוספים שישמשו להשוואה עתידית", UpdateListActivity.class.getName()));
+            boardingModelList.add(new BoardingModel(R.drawable.ic_compare_price, "השוו מחיר מוצר", "השוו מחיר של כל מוצר שקניתם וכך תוכלו לבצע קניה חכמה יותר", ComparePriceActivity.class.getName()));
+        }
     }
 
     /*

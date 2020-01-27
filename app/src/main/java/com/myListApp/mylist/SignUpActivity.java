@@ -37,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity implements SignupPresenter
         progressBar=findViewById(R.id.progressBar);
         signupPresenter=new SignupPresenter(this);
         signupButton();
+
     }
 
     /*
@@ -89,5 +90,16 @@ public class SignUpActivity extends AppCompatActivity implements SignupPresenter
                 Toast.makeText(this, "הסיסמה שהזנת חלשה מידי", Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    @Override
+    public void verificationMailSend(boolean isSent) {
+        if(isSent) {
+            Toast.makeText(this, "המייל נשלח בהצלחה!", Toast.LENGTH_LONG).show();
+            onBackPressed();
+        }
+        else
+            Toast.makeText(this, "שליחת המייל נכשלה", Toast.LENGTH_LONG).show();
+
     }
 }

@@ -103,7 +103,7 @@ public class UserOperation {
             will be call if the application is unable to read data from the database
              */
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                System.out.println("in concelled");
             }
         });
     }
