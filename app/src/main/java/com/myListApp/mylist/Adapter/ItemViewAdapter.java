@@ -118,6 +118,11 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     /*
     Deleting item from recycler view
     save the removed item into a member variable to be used in case the user wants to undo the delete
@@ -174,7 +179,9 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         T itModel = itemModels.get(getAdapterPosition());
-                        itModel.setItemPrice(Double.parseDouble(editTextPrice.getText().toString()));
+                        if(!editTextPrice.getText().toString().equals(""))
+                          itModel.setItemPrice(Double.parseDouble(editTextPrice.getText().toString()));
+
                     }
                     @Override
                     public void afterTextChanged(Editable s) {
@@ -188,7 +195,8 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         ItemModel itModel = itemModels.get(getAdapterPosition());
-                        itModel.setAmount(Double.parseDouble(editTextAmount.getText().toString()));
+                        if(!editTextAmount.getText().toString().equals(""))
+                         itModel.setAmount(Double.parseDouble(editTextAmount.getText().toString()));
                     }
                     @Override
                     public void afterTextChanged(Editable s) { }
@@ -200,7 +208,8 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         T itModel = itemModels.get(getAdapterPosition());
-                        itModel.setWeight(Double.parseDouble(editTextPriceforKilo.getText().toString()));
+                        if(!editTextPriceforKilo.getText().toString().equals(""))
+                         itModel.setWeight(Double.parseDouble(editTextPriceforKilo.getText().toString()));
                     }
                     @Override
                     public void afterTextChanged(Editable s) { }
@@ -212,7 +221,8 @@ public class ItemViewAdapter<T extends ItemModel> extends RecyclerView.Adapter<I
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         T itModel=itemModels.get(getAdapterPosition());
-                        itModel.setBrand(editTextBrand.getText().toString());
+                        if(!editTextBrand.getText().toString().equals(""))
+                         itModel.setBrand(editTextBrand.getText().toString());
                     }
                     @Override
                     public void afterTextChanged(Editable s) { }});
