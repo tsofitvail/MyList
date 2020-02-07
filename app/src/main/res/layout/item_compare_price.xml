@@ -22,7 +22,7 @@
         />
     <TextView
         android:id="@+id/store"
-        android:layout_width="120dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         tools:text="@string/compare_textView_store"
         style="@style/RecyclerViewRow"
